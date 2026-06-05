@@ -19,9 +19,6 @@ $VENV: $REQS
 	python3 -m venv $VENV
 	u $VENV/bin/pip install -r $REQS
 
-# $ENV_LINK: $ENV_FILE
-# 	ln -s $ENV_FILE $ENV_LINK
-
 $SCRIPT $REQS: $ZIP_FILE
 	u unzip $ZIP_FILE
 	sleep 1

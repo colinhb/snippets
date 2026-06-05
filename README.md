@@ -1,8 +1,6 @@
-# Snippets (PRIVATE)
+# Snippets
 
 Small, self-contained projects, experiments, and one-off scripts. Things too small to deserve their own repo. Each project lives in its own folder.
-
-This is intended to be a **PRIVATE** repository. Please notify me if it is publically available.
 
 ## Index
 

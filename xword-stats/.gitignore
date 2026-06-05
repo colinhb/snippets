@@ -1,0 +1,5 @@
+.DS_Store
+.env
+.venv
+nyt-crossword-stats-master/*
+master.zip

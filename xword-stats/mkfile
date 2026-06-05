@@ -1,0 +1,37 @@
+MKSHELL=rc
+
+ZIP_URL=https://github.com/mattdodge/nyt-crossword-stats/archive/refs/heads/master.zip
+ZIP_FILE=master.zip
+SCRIPT_DIR=nyt-crossword-stats-master
+SCRIPT=$SCRIPT_DIR/fetch_puzzle_stats.py
+REQS=$SCRIPT_DIR/requirements.txt
+VENV=.venv
+ENV_FILE=.env
+ENV_LINK=$SCRIPT_DIR/.env
+CSV=data.csv
+
+all:V: $CSV
+
+$CSV: $VENV $SCRIPT
+	u $VENV/bin/python $SCRIPT -s 2020-01-01 -o $CSV
+
+$VENV: $REQS
+	python3 -m venv $VENV
+	u $VENV/bin/pip install -r $REQS
+
+# $ENV_LINK: $ENV_FILE
+# 	ln -s $ENV_FILE $ENV_LINK
+
+$SCRIPT $REQS: $ZIP_FILE
+	u unzip $ZIP_FILE
+	sleep 1
+	touch $SCRIPT $REQS
+
+$ZIP_FILE:
+	curl -fL -o master.zip $ZIP_URL
+
+clean:V:
+	rm -rf $ZIP_FILE $SCRIPT_DIR $VENV
+
+nuke:V: clean
+	rm -f $CSV

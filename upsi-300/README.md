@@ -2,7 +2,7 @@
 
 This repo documents a small survey of Americans about AI risk: the survey instrument, the sample, and the data analysis. Further exploration and visualization lives in a companion [Observable notebook](https://observablehq.com/@colin8/upsi-300).
 
-![UPSI plot of all participants, total mean, and Dem and Rep means with CI bars (Observable)](chart.png)
+**Note**: Raw data exports are in `upsi-raws.zip.age`, encrypted with [age](https://github.com/FiloSottile/age). All the meaningful fields, at the individual participant level, are in `joined.tsv`. This is done to keep the participants' Prolific IDs blinded.
 
 ## UPSI survey
 
@@ -60,3 +60,6 @@ Output columns:
 ## Observable notebook
 
 Exploration and charts live in an [Observable notebook](https://observablehq.com/@colin8/upsi-300).
+
+![UPSI plot of all participants, total mean, and Dem and Rep means with CI bars (Observable)](chart.png)
+

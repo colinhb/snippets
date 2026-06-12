@@ -22,11 +22,19 @@ The survey is based on the [UPSI scale](https://aiimpactlab.substack.com/i/13845
 
 ## Prolific sample
 
-Participants were recruited on [Prolific](https://www.prolific.com/), an opt-in online panel, using quotas on age, sex, ethnicity, and party ID, with a total recruitment target of 300. Because this is a small, quota-constructed, non-probability panel rather than a large, weighted, random sample, treat the results as suggestive, not nationally representative.
+Participants were recruited on [Prolific](https://www.prolific.com/), an opt-in online panel, from US residents using quotas on age, sex, ethnicity, and party ID, with a total recruitment target of 300. Because this is a small, quota-constructed, non-probability panel rather than a large, weighted, random sample, treat the results as suggestive, not nationally representative.
 
 ## Data analysis
 
 The `mkfile` inner-joins the raw Prolific demographics export against the raw Gorilla questionnaire export (keyed on the Prolific `Submission id` == the Gorilla `Participant External Session ID`) into a tidy `joined.tsv`.
+
+For reproducability, the Gorilla export has these options:
+
+- Combine experiment versions
+- CSV (Tab)
+- Short form (one row per participant)
+- Name + ID headers
+- Add headers
 
 Briefly, we:
 

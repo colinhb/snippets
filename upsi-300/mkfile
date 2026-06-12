@@ -1,14 +1,19 @@
 MKSHELL=rc
 
-RAWS_ZIP=raws.zip
+RAWS_AGE=upsi-raws.zip.age
+RAWS_ZIP=upsi-raws.zip
 
-GORILLA_RAW=data_exp_273904-vall_questionnaire-5mv9.csv
-PROLIFIC_RAW=prolific_demographic_export_6a2aa2d08f815b4e40405493.csv
+GORILLA_RAW=raws/data_exp_273904-vall_questionnaire-5mv9.csv
+PROLIFIC_RAW=raws/prolific_demographic_export_6a2aa2d08f815b4e40405493.csv
 
 JOIN_TSV=joined.tsv
 STATS_TSV=stats.tsv
 
 all:V: $STATS_TSV
+
+$RAWS_ZIP: $RAWS_AGE
+	age -d $RAWS_AGE > $target
+	touch $target
 
 $GORILLA_RAW $PROLIFIC_RAW: $RAWS_ZIP
 	u unzip $RAWS_ZIP
@@ -86,4 +91,4 @@ $STATS_TSV: $JOIN_TSV
 	EOF
 
 clean:V:
-	rm -f $GORILLA_RAW $PROLIFIC_RAW $JOIN_TSV $STATS_TSV
+	rm -f $RAWS_ZIP $GORILLA_RAW $PROLIFIC_RAW $JOIN_TSV $STATS_TSV

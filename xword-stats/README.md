@@ -4,7 +4,7 @@ This project has a few phases.
 
 **1/**
 
-The first is using [mattdodge/nyt-crossword-stats](https://github.com/mattdodge/nyt-crossword-stats) to download a `data.csv` crossword data file from the NY Times. This is self-documented in the `mkfile`, but requires a valid `NYT-S` cookie from nytimes.com in a `.env` file.
+The first is using [mattdodge/nyt-crossword-stats](https://github.com/mattdodge/nyt-crossword-stats) to download a `data.csv` crossword data file from the NY Times. This is self-documented in the `mkfile`, but requires a valid `NYT-S` cookie from nytimes.com in an `NYT_COOKIE` field in a `.env` file (`.gitignore`-d) .
 
 **2/**
 

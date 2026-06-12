@@ -20,13 +20,13 @@ $GORILLA_RAW $PROLIFIC_RAW: $RAWS_ZIP
 	touch $GORILLA_RAW $PROLIFIC_RAW
 
 # Build joined.tsv by inner-joining two raw exports:
-#   - Prolific demographics (true comma-CSV, RFC-4180 quoted)
-#   - Gorilla questionnaire  (TAB-delimited despite the .csv name)
+#   - Prolific demographics (CSV, RFC-4180 quoted)
+#   - Gorilla questionnaire  (TAB-delimited)
 # Join key: Prolific "Submission id" == Gorilla "Participant External Session ID".
-# Keep only APPROVED/AWAITING-REVIEW Prolific submissions with a complete
-# questionnaire (-> 287 analysis rows), bucket Age into an age_band column, and
-# build upsi_score: the humans_robots_pct A-Z letter + the rounded catastrophe score.
-# sqlite3 gives us a real CSV parser for the Prolific file (.import --csv)
+# Keep only approved / awaiting review Prolific submissions with a complete
+# Gorilla questionnaire, bucket Age into an age_band column, and build upsi_score: 
+# the humans_robots_pct A-Z letter + the rounded catastrophe score.
+# Note: sqlite3 gives us a real CSV parser for the Prolific file
 $JOIN_TSV: $PROLIFIC_RAW $GORILLA_RAW
 	sqlite3 :memory: <<EOF
 	.import --csv $PROLIFIC_RAW demo
@@ -56,13 +56,11 @@ $JOIN_TSV: $PROLIFIC_RAW $GORILLA_RAW
 	EOF
 
 # Marginal summary stats: n, mean, SD and SE of each measure per subgroup,
-# one tidy row per group. Each dimension is one UNION line -- tag every respondent
+# one tidy row per group. Each dimension is one UNION line: tag every respondent
 # dim=value, then a single GROUP BY rolls up all groups at once.
 # SQLite has no stddev(), so the sample SD is built from sums, and SE = SD/sqrt(n):
 #   SD = sqrt((sum(x*x) - sum(x)^2/n) / (n-1))   (*1.0 forces float division).
-# mean_upsi_score = letter(mean pct) + round(mean catastrophe) -- the same
-# letter+digit scheme as the per-row upsi_score in joined.tsv (aggregate first,
-# then map and concatenate; never average the codes themselves).
+# mean_upsi_score = letter(mean pct) + round(mean catastrophe).
 $STATS_TSV: $JOIN_TSV
 	sqlite3 :memory: <<EOF
 	.mode tabs
